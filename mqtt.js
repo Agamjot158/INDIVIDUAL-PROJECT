@@ -16,7 +16,7 @@ passphrase: 'qwerty'
 // const Readline = require('@serialport/parser-readline');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Sensor = require('./models/sensor');
+// const Sensor = require('./models/sensor');
 const Lighting = require('./models/lighting');
 const Security = require('../api/models/security');
 const AirCond = require('./models/acond');
@@ -57,14 +57,14 @@ app.use(function(req, res, next) {
 
 
 
-const comPort1 = new SerialPort({
-  path: 'COM10',
-  baudRate: 9600,
-  dataBits: 8,
-  stopBits: 1,
-  parity: 'none',
-  });
-  const parser = comPort1.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+// const comPort1 = new SerialPort({
+//   path: 'COM10',
+//   baudRate: 9600,
+//   dataBits: 8,
+//   stopBits: 1,
+//   parity: 'none',
+//   });
+//   const parser = comPort1.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
 // const parser = comPort1.pipe(new ReadlineParser({ delimiter: '\r\n' }));
   // Read the port data
@@ -118,44 +118,44 @@ client.on('connect', () => {
 
   });
 
-  const values = []; // Array to store the values
+//   const values = []; // Array to store the values
 
-  const temperatureValues = []; // Array to store temperature values
-  const humidityValues = []; // Array to store humidity values
+//   const temperatureValues = []; // Array to store temperature values
+//   const humidityValues = []; // Array to store humidity values
   
-  let count = 0; // Counter to keep track of the number of values read
+//   let count = 0; // Counter to keep track of the number of values read
   
-  parser.on('data', (data) => {
+//   parser.on('data', (data) => {
     
-    values.push(data);
+//     values.push(data);
   
-    count++;
+//     count++;
   
-    // Check if 20 values have been read (10 temperature values and 10 humidity values)
-    if (count === 10) {
+//     // Check if 20 values have been read (10 temperature values and 10 humidity values)
+//     if (count === 10) {
 
-      const name = 'AC';
-      const room = '8';
-      const floor = '2';
-      const topic = "/sensorData"
+//       const name = 'AC';
+//       const room = '8';
+//       const floor = '2';
+//       const topic = "/sensorData"
 
-      const message = JSON.stringify({
-        name,
-        room,
-        floor,
-        values
-      });
+//       const message = JSON.stringify({
+//         name,
+//         room,
+//         floor,
+//         values
+//       });
   
-      console.log(message);
-      client.publish(topic, message);
-      console.log("Data sent to MQTT");
+//       console.log(message);
+//       client.publish(topic, message);
+//       console.log("Data sent to MQTT");
   
-      count = 0;
-      values.length = 0;
+//       count = 0;
+//       values.length = 0;
 
-    }
+//     }
 
-  });
+//   });
   
   
   // parser.on('data', (data) => {
